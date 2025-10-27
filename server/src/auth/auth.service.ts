@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
 import { UsersService } from 'src/users/users.service';
@@ -28,11 +24,11 @@ export class AuthService {
     const { email, password } = signInDto;
 
     const foundUser = await this.usersRepository.findOne({ where: { email } });
-    if (!foundUser) throw new NotFoundException('User not found');
+    if (!foundUser) throw new UnauthorizedException('Invalid credentials');
 
     const matchedPassword = await bcrypt.compare(password, foundUser.password);
     if (!matchedPassword)
-      throw new UnauthorizedException('Wrong credentials(Password not found)');
+      throw new UnauthorizedException('Invalid credentials');
 
     const payload = { sub: foundUser.id, email: foundUser.email };
     const token = this.jwtService.sign(payload);
