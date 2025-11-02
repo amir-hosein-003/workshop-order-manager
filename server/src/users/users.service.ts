@@ -29,7 +29,7 @@ export class UsersService {
 
     const { password: _, ...userData } = newUser;
 
-    return userData;
+    return newUser;
   }
 
   async findAll() {

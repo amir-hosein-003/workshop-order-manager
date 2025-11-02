@@ -28,7 +28,7 @@ export class User {
     enum: ['admin', 'operator'],
     default: 'operator',
   })
-  role: 'admin' | 'operator';
+  role: string;
 
   @CreateDateColumn()
   createdAt: Date;
