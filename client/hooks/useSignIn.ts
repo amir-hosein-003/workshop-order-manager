@@ -18,7 +18,7 @@ export const useSignIn = () => {
     },
     onSuccess: (data) => {
       toast.update("signin", {
-        render: `Welcome back, ${data.name}!`,
+        render: `Welcome back, ${data.user.name}!`,
         type: "success",
         isLoading: false,
         autoClose: 2000,
@@ -27,11 +27,11 @@ export const useSignIn = () => {
       dispatch(
         setCredentials({
           user: {
-            id: data.id,
-            name: data.name,
-            email: data.email,
-            role: data.role,
-            profile: data.profile,
+            id: data.user.id,
+            name: data.user.name,
+            email: data.user.email,
+            role: data.user.role,
+            avatar: data.user.profile,
           },
         })
       );

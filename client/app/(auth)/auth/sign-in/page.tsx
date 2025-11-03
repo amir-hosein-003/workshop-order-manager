@@ -16,8 +16,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { SigninFormFields, signinSchema } from "@/lib/validations/signinSchema";
 import PasswordInput from "@/components/ui/PasswordInput";
+import { useSignIn } from "@/hooks/useSignIn";
 
 const SigninPage = () => {
+  const mutation = useSignIn();
   const form = useForm<SigninFormFields>({
     resolver: zodResolver(signinSchema),
     defaultValues: {
@@ -28,6 +30,7 @@ const SigninPage = () => {
 
   const onSubmit = (data: SigninFormFields) => {
     console.log(data);
+    mutation.mutate(data);
   };
   return (
     <section className="w-full md:h-screen bg-secondary flex flex-col items-center justify-center">
@@ -78,11 +81,11 @@ const SigninPage = () => {
               <Button
                 type="submit"
                 className="w-full h-12 text-primary-content rounded-full cursor-pointer"
-                // disabled={mutation.isPending}
+                disabled={mutation.isPending}
               >
-                {/* {mutation.isPending && (
+                {mutation.isPending && (
                   <div className="loading loading-spinner" />
-                )} */}
+                )}
                 Sign In
               </Button>
             </form>

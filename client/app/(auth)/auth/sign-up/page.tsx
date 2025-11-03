@@ -19,6 +19,8 @@ import PasswordInput from "@/components/ui/PasswordInput";
 import { useSignUp } from "@/hooks/useSignUp";
 
 const SignUp = () => {
+  const mutation = useSignUp();
+  
   const form = useForm<SignupFormFields>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -27,7 +29,6 @@ const SignUp = () => {
       password: "",
     },
   });
-  const mutation = useSignUp();
 
   const onSubmit = (data: SignupFormFields) => {
     console.log(data);
