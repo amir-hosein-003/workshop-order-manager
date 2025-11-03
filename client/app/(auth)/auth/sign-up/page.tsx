@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { SignupFormFields, signupSchema } from "@/lib/validations/signupSchema";
 import PasswordInput from "@/components/ui/PasswordInput";
+import { useSignUp } from "@/hooks/useSignUp";
 
 const SignUp = () => {
   const form = useForm<SignupFormFields>({
@@ -26,9 +27,11 @@ const SignUp = () => {
       password: "",
     },
   });
+  const mutation = useSignUp();
 
   const onSubmit = (data: SignupFormFields) => {
     console.log(data);
+    mutation.mutate(data);
   };
   return (
     <section className="w-full md:h-screen bg-secondary flex flex-col items-center justify-center">
@@ -96,11 +99,11 @@ const SignUp = () => {
               <Button
                 type="submit"
                 className="w-full h-12 text-primary-content rounded-full cursor-pointer"
-                // disabled={mutation.isPending}
+                disabled={mutation.isPending}
               >
-                {/* {mutation.isPending && (
+                {mutation.isPending && (
                   <div className="loading loading-spinner" />
-                )} */}
+                )}
                 Sign Up
               </Button>
             </form>

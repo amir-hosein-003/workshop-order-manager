@@ -58,7 +58,9 @@ export class AuthService {
       const tokens = await this.generateTokens(user);
       this.cookieService.setRefreshToken(res, tokens.refreshToken);
 
-      return { accessToken: tokens.accessToken };
+      return {
+        accessToken: tokens.accessToken,
+      };
     } catch {
       throw new UnauthorizedException('Invalid refresh token');
     }

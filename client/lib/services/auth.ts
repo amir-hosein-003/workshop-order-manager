@@ -13,7 +13,7 @@ export const signIn = async (user: SigninFormFields) => {
 };
 
 export const logout = async () => {
-  const res = await axiosInstance.post("/api/v1/auth/log-out");
+  const res = await axiosInstance.post("/api/v1/auth/logout");
   return res.data;
 };
 
