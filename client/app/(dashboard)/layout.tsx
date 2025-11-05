@@ -1,11 +1,9 @@
-import React from "react";
+import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 
-interface Props {
+export default function DemoLayout({
+  children
+}: {
   children: React.ReactNode;
+}) {
+  return <AdminPanelLayout>{children}</AdminPanelLayout>;
 }
-
-const layout = ({ children }: Props) => {
-  return <div>{children}</div>;
-};
-
-export default layout;

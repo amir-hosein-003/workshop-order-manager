@@ -1,6 +1,6 @@
-"use client";
 import Link from "next/link";
 
+import PlaceholderContent from "@/components/demo/placeholder-content";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
 import {
   Breadcrumb,
@@ -10,11 +10,10 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import PlaceholderContent from "@/components/demo/placeholder-content";
 
-export default function DashboardPage() {
+export default function CategoriesPage() {
   return (
-    <ContentLayout title="Dashboard">
+    <ContentLayout title="Categories">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -24,15 +23,21 @@ export default function DashboardPage() {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Dashboard</BreadcrumbPage>
+            <BreadcrumbLink asChild>
+              <Link href="/dashboard">Dashboard</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Categories</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-
+      
       {/* content */}
       <PlaceholderContent>
         <div className="">
-          <h1 className="text-2xl">Dashboard</h1>
+          <h1 className="text-2xl">Categories</h1>
         </div>
       </PlaceholderContent>
     </ContentLayout>
