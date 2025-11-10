@@ -16,7 +16,9 @@ import { RefreshGuard } from './guards/refresh.guard';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+  ) {}
 
   @Post('register')
   async register(@Body() dto: SignUpDto, @Res() res: Response) {
@@ -32,22 +34,23 @@ export class AuthController {
 
   @Post('refresh')
   @UseGuards(RefreshGuard)
-  async refresh(@Req() req: Request, @Res() res: Response) {
-    const token = req.cookies?.refresh_token;
-    const result = await this.authService.refresh(token, res);
-    return res.json(result);
-  }
-
-  @Post('logout')
-  @UseGuards(JwtAuthGuard)
-  async logout(@Res() res: Response) {
-    const result = await this.authService.logout(res);
-    return res.json(result);
+  async refresh(
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const token = req.cookies.refresh_token;
+    return await this.authService.refresh(token, res);
   }
 
   @Get('me')
   @UseGuards(JwtAuthGuard)
-  me(@Req() req: any) {
-    return req.user;
+  async me(@Req() req: Request) {
+    return await this.authService.getMe(req);
+  }
+
+  @Post('logout')
+  @UseGuards(JwtAuthGuard)
+  async logout(@Res({ passthrough: true }) res: Response, @Req() req: Request) {
+    return await this.authService.logout(res, req);
   }
 }

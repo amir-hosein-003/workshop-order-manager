@@ -1,10 +1,21 @@
 "use client";
 
-import { useAppSelector } from "@/lib/store/hooks";
 import Link from "next/link";
 
+import { logOut } from "@/lib/services/auth";
+import { clearCredentials } from "@/lib/store/features/authSlice";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
+import { axiosInstance } from "@/interceptors/axiosInterceptor";
+
 const Navbar = () => {
+  const dispatch = useAppDispatch();
   const auth = useAppSelector((state) => state.auth);
+
+  const logout = async () => {
+    await logOut();
+    axiosInstance.defaults.headers.common["Authorization"] = "";
+    dispatch(clearCredentials());
+  };
 
   return (
     <div className="p h-16 flex flex-row items-center justify-between bg-secondary text-secondary-content">
@@ -14,7 +25,12 @@ const Navbar = () => {
 
       <div className="flex flex-row items-center gap-4">
         {auth.isAuthenticated && auth.user ? (
-          <div className="">{auth.user.name}</div>
+          <div className="flex flex-row items-center gap-6">
+            <p className="">{auth.user.name}</p>
+            <button onClick={logout} className="btn btn-primary btn-outline rounded-full text-primary-content">
+              Log out
+            </button>
+          </div>
         ) : (
           <>
             <Link href="/auth/sign-up" className="btn btn-primary rounded-full">

@@ -11,7 +11,7 @@ export class CookieService {
       httpOnly: true,
       secure: this.config.get('NODE_ENV') === 'production',
       sameSite: 'strict',
-      path: '/auth',
+      path: '/',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
   }
@@ -20,7 +20,7 @@ export class CookieService {
     res.clearCookie('refresh_token', {
       httpOnly: true,
       sameSite: 'strict',
-      path: '/auth',
+      path: '/',
     });
   }
 }

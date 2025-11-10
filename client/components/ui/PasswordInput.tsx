@@ -21,7 +21,7 @@ function PasswordInput<T extends FieldValues>({
       <Input
         type={showPassword ? "text" : "password"}
         placeholder={placeholder}
-        className="w-full h-full rounded-full bg-secondary text-secondary-content border-0"
+        className="w-full h-full rounded-lg text-base-content placeholder:text-base-content/40 border-2"
         {...field}
         name={field.name as string}
       />

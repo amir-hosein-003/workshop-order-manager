@@ -1,11 +1,11 @@
-import axios from "axios";
+// import axios from "axios";
 
-const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "";
+// const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "";
 
-export const axiosInstance = axios.create({
-  baseURL,
-  withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+// export const axiosInstance = axios.create({
+//   baseURL,
+//   withCredentials: true,
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+// });
