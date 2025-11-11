@@ -1,9 +1,9 @@
 import { axiosInstance } from "@/interceptors/axiosInterceptor";
+import { SignUpPayload } from "@/hooks/api-hooks/useSignUp";
 
-import { SignupFormFields } from "../validations/signupSchema";
 import { SigninFormFields } from "../validations/signinSchema";
 
-export const signUp = async (newUser: SignupFormFields) => {
+export const signUp = async (newUser: SignUpPayload) => {
   const res = await axiosInstance.post("/api/v1/auth/register", newUser);
   return res.data;
 };

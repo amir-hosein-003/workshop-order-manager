@@ -5,14 +5,19 @@ import { signUp } from "@/lib/services/auth";
 import { useAppDispatch } from "@/lib/store/hooks";
 import { setCredentials } from "@/lib/store/features/authSlice";
 import { axiosInstance } from "@/interceptors/axiosInterceptor";
-import { SignupFormFields } from "@/lib/validations/signupSchema";
+
+export interface SignUpPayload {
+  name: string;
+  email: string;
+  password: string;
+}
 
 export const useSignUp = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
   return useMutation({
-    mutationFn: (payload: SignupFormFields) => signUp(payload),
+    mutationFn: (payload: SignUpPayload) => signUp(payload),
     onSuccess: (data) => {
       axiosInstance.defaults.headers.common[
         "Authorization"

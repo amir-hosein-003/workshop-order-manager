@@ -3,6 +3,7 @@
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
 
 import {
   Form,
@@ -16,7 +17,6 @@ import { Input } from "@/components/ui/input";
 import { SignupFormFields, signupSchema } from "@/lib/validations/signupSchema";
 import PasswordInput from "@/components/ui/PasswordInput";
 import { useSignUp } from "@/hooks/api-hooks/useSignUp";
-import Image from "next/image";
 
 const SignUp = () => {
   const mutation = useSignUp();
@@ -32,7 +32,12 @@ const SignUp = () => {
   });
 
   const onSubmit = (data: SignupFormFields) => {
-    mutation.mutate(data);
+    const userData = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    }
+    mutation.mutate(userData);
   };
   return (
     <section className="w-full h-screen bg-base-100">
