@@ -9,21 +9,30 @@ import { CookieService } from './cookie.service';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Token } from './entities/token.entity';
+import { TokenService } from './token.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Token]),
     PassportModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: (config: ConfigService) => ({
         secret: config.get('JWT_SECRET'),
+        global: true,
       }),
       inject: [ConfigService],
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, UsersService, JwtStrategy, CookieService],
+  providers: [
+    AuthService,
+    UsersService,
+    JwtStrategy,
+    CookieService,
+    TokenService,
+  ],
   exports: [AuthService],
 })
 export class AuthModule {}

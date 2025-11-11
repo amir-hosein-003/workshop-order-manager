@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
@@ -17,7 +17,7 @@ export class UsersService {
   public async create(createUserDto: CreateUserDto) {
     const { email, password } = createUserDto;
     const user = await this.usersRepository.findOne({ where: { email } });
-    if (user) throw new UnauthorizedException('User with this email in use');
+    if (user) throw new BadRequestException('User with this email in use');
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -26,8 +26,6 @@ export class UsersService {
       password: hashedPassword,
     });
     newUser = await this.usersRepository.save(newUser);
-
-    const { password: _, ...userData } = newUser;
 
     return newUser;
   }

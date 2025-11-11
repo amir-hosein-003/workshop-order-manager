@@ -5,7 +5,6 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/entities/user.entity';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
@@ -31,7 +30,7 @@ import { JwtModule } from '@nestjs/jwt';
         password: configService.get('DATABASE_PASSWORD'),
         host: configService.get('DATABASE_HOST'),
         database: configService.get('DATABASE_NAME'),
-        entities: [User],
+        autoLoadEntities: true,
         synchronize: true,
       }),
       inject: [ConfigService],
