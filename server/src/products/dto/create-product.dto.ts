@@ -13,9 +13,8 @@ export class CreateProductDto {
   @IsNotEmpty()
   price: number;
 
-  @IsString()
   @IsNotEmpty()
-  image: string;
+  images: string[];
 
   @IsString()
   @IsNotEmpty()
