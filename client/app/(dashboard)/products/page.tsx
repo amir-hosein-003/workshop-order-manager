@@ -29,14 +29,14 @@ export default function PostsPage() {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Posts</BreadcrumbPage>
+            <BreadcrumbPage>Products</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
       {/* content */}
       <PlaceholderContent>
         <div className="">
-          <h1 className="text-2xl">Posts</h1>
+          <h1 className="text-2xl">Products</h1>
         </div>
       </PlaceholderContent>
     </ContentLayout>

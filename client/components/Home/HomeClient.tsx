@@ -6,6 +6,7 @@ import { useAppDispatch } from "@/lib/store/hooks";
 import { setCredentials } from "@/lib/store/features/authSlice";
 
 import "@/interceptors/axiosInterceptor.ts";
+import Link from "next/link";
 
 type Props = {};
 
@@ -37,7 +38,7 @@ const HomeClient = (props: Props) => {
     <div className="w-full min-h-screen bg-neural">
       Home
       <div className="flex items-center gap-4 w-xl mx-auto">
-        <button className="btn btn-primary">test</button>
+        <Link href="/dashboard" className="btn btn-primary">Dashboard</Link>
         <button className="btn btn-secondary">test</button>
         <button className="btn btn-accent">test</button>
         <button className="btn btn-neutral">test</button>

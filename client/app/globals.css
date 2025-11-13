@@ -5,6 +5,11 @@
 @plugin "daisyui" {
   themes: light --default;
 }
+@layer {
+  .main-input{
+    @apply w-full h-12 rounded-lg text-base-content placeholder:text-base-content/40 border-2;
+  }
+}
 
 @plugin "daisyui/theme" {
   name: "workshop-order-theme";
