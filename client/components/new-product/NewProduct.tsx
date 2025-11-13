@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -17,13 +18,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Icon from "../ui/icon";
-import { Textarea } from "../ui/textarea";
-import { useEffect, useState } from "react";
 import {
   NewProductFormFields,
   NewProductSchema,
 } from "@/lib/validations/newProductSchema";
+
+import Icon from "../ui/icon";
+import { Textarea } from "../ui/textarea";
 
 const NewProduct = () => {
   const [images, setImages] = useState<string[]>([]);
