@@ -25,9 +25,11 @@ import {
 
 import Icon from "../ui/icon";
 import { Textarea } from "../ui/textarea";
+import { useNewProduct } from "@/hooks/api-hooks/useNewProduct";
 
 const NewProduct = () => {
   const [images, setImages] = useState<string[]>([]);
+  const mutation = useNewProduct();
 
   const form = useForm<NewProductFormFields>({
     resolver: zodResolver(NewProductSchema),
@@ -46,14 +48,15 @@ const NewProduct = () => {
 
   const onSubmit = (data: NewProductFormFields) => {
     console.log(data);
+    mutation.mutate(data);
   };
 
   return (
     <section className="w-full h-full">
       <h3 className="text-2xl font-semibold ">New Product</h3>
 
-      <div className="grid grid-cols-2 gap-16 mt-6">
-        <div className="">
+      <div className="grid grid-cols-2 justify-items-center mt-6">
+        <div className="w-md">
           <div className="bg-base-200 w-full h-64 flex flex-col items-center justify-center gap-6 rounded-xl">
             <CldUploadButton
               uploadPreset="course"
@@ -92,14 +95,13 @@ const NewProduct = () => {
           <div className="grid grid-cols-3 gap-4 mt-4">
             {images &&
               images.map((img, index) => (
-                <div className="relative">
+                <div key={index} className="relative">
                   {index === 0 && (
                     <p className="text-xs bg-base-100/80 p-1 rounded-md absolute top-1 left-1">
                       main image
                     </p>
                   )}
                   <CldImage
-                    key={index}
                     src={img}
                     width="500"
                     height="500"
@@ -117,7 +119,7 @@ const NewProduct = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="max-w-md space-y-6"
+            className="w-md space-y-6"
           >
             <FormField
               control={form.control}

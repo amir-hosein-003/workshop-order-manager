@@ -10,6 +10,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import ProductsList from "@/components/product/ProductsList";
 
 export default function PostsPage() {
   return (
@@ -35,9 +36,7 @@ export default function PostsPage() {
       </Breadcrumb>
       {/* content */}
       <PlaceholderContent>
-        <div className="">
-          <h1 className="text-2xl">Products</h1>
-        </div>
+        <ProductsList />
       </PlaceholderContent>
     </ContentLayout>
   );

@@ -10,7 +10,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import NewProduct from "@/components/new-product/NewProduct";
+import NewProduct from "@/components/product/NewProduct";
 
 export default function NewPostPage() {
   return (
