@@ -18,7 +18,7 @@ export class Product {
   description: string;
 
   @Column({ type: 'varchar' })
-  price: number;
+  price: string;
 
   @Column({ type: 'varchar' })
   images: string[];

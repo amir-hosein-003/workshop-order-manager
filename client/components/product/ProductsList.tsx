@@ -7,15 +7,7 @@ import { useGetProducts } from "@/hooks/api-hooks/useGetProducts";
 import { Product } from "@/lib/types/Product";
 
 import Icon from "../ui/icon";
-
-const parseImages = (images: string | null | undefined): string[] => {
-  if (!images) return [];
-  try {
-    return JSON.parse(images);
-  } catch {
-    return [];
-  }
-};
+import { parseImages } from "@/lib/utils/parseImages";
 
 const ProductsList = () => {
   const { data, isLoading } = useGetProducts();

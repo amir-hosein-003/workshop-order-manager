@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -22,33 +23,54 @@ import {
   NewProductFormFields,
   NewProductSchema,
 } from "@/lib/validations/newProductSchema";
+import { useNewProduct } from "@/hooks/api-hooks/useNewProduct";
+import { useGetProductById } from "@/hooks/api-hooks/useGetProductById";
+import { useUpdateProduct } from "@/hooks/api-hooks/useUpdateProduct";
+import { parseImages } from "@/lib/utils/parseImages";
 
 import Icon from "../ui/icon";
 import { Textarea } from "../ui/textarea";
-import { useNewProduct } from "@/hooks/api-hooks/useNewProduct";
 
 const NewProduct = () => {
   const [images, setImages] = useState<string[]>([]);
+  const searchParams = useSearchParams();
+  const productId = searchParams.get("productId") || "";
+  const { data } = useGetProductById(productId);
   const mutation = useNewProduct();
+  const updateMutation = useUpdateProduct();
 
   const form = useForm<NewProductFormFields>({
     resolver: zodResolver(NewProductSchema),
     defaultValues: {
-      name: "",
-      description: "",
-      price: "",
+      name: (data && data.name) || "",
+      description: (data && data.description) || "",
+      price: (data && data.price) || "",
       images: [],
-      category: "",
+      category: (data && data.category) || "",
     },
   });
+
+  useEffect(() => {
+    if (data?.images) {
+      const imgs =
+        typeof data.images === "string"
+          ? parseImages(data.images)
+          : data.images;
+      setImages(imgs);
+      form.setValue("images", imgs);
+    }
+  }, [data]);
 
   useEffect(() => {
     form.setValue("images", images);
   }, [images]);
 
   const onSubmit = (data: NewProductFormFields) => {
-    console.log(data);
-    mutation.mutate(data);
+    if (productId) {
+      updateMutation.mutate({ id: productId, data });
+    } else {
+      mutation.mutate(data);
+    }
   };
 
   return (
@@ -198,23 +220,24 @@ const NewProduct = () => {
               )}
             />
 
-            {/* {mutation.isError && (
+            {mutation.isError && (
               <p className="text-sm text-error">
                 {mutation.error.message ===
                   "Request failed with status code 400" &&
                   "Invalid credentials"}
               </p>
-            )} */}
+            )}
 
             <button
               type="submit"
               className="btn btn-primary btn-block rounded-lg mt-4"
-              // disabled={mutation.isPending}
+              disabled={mutation.isPending || updateMutation.isPending}
             >
-              {/* {mutation.isPending && (
-                <div className="loading loading-spinner" />
-              )} */}
-              Add Product
+              {mutation.isPending ||
+                (updateMutation.isPending && (
+                  <div className="loading loading-spinner" />
+                ))}
+              {productId ? "Update Product" : "Add Product"}
             </button>
           </form>
         </Form>

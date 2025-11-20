@@ -5,11 +5,6 @@
 @plugin "daisyui" {
   themes: light --default;
 }
-@layer {
-  .main-input{
-    @apply w-full h-12 rounded-lg text-base-content placeholder:text-base-content/40 border-2;
-  }
-}
 
 /* HTML: <div class="inverted-radius"></div> */
 .inverted-radius_tl {
@@ -19,7 +14,7 @@
   --y: 13px; /* vertical offset (no percentage) */
   
   /* width: 250px; */
-  aspect-ratio: 1;
+  /* aspect-ratio: 1; */
   /* background: #3FB8AF; */
   border-radius: var(--r);
   --_m:/calc(2*var(--r)) calc(2*var(--r)) radial-gradient(#000 70%,#0000 72%);
@@ -43,7 +38,7 @@
   --y: 18px; /* vertical offset (no percentage) */
   
   /* width: 250px; */
-  aspect-ratio: 1;
+  /* aspect-ratio: 1; */
   /* background: #3FB8AF; */
   border-radius: var(--r);
   --_m:/calc(2*var(--r)) calc(2*var(--r)) radial-gradient(#000 70%,#0000 72%);
@@ -214,5 +209,8 @@
 @layer components {
   .p {
     @apply px-4 sm:px-8 md:px-16 lg:px-32;
+  }
+  .main-input{
+    @apply w-full h-12 rounded-lg text-base-content placeholder:text-base-content/40 border-2;
   }
 }
