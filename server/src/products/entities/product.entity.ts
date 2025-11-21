@@ -19,7 +19,8 @@ export class Product {
 
   @Column({ type: 'varchar' })
   price: string;
-
+  
+  // FIXME: Implement 'simple-array'
   @Column({ type: 'varchar' })
   images: string[];
 

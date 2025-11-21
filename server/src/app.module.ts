@@ -7,6 +7,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { ProductsModule } from './products/products.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { ProductsModule } from './products/products.module';
     UsersModule,
     AuthModule,
     ProductsModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],
