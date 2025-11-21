@@ -24,7 +24,7 @@ const ProductsList = () => {
 
       <div className="w-full mt-6">
         {isLoading ? (
-          <div className="w-full min-h-48 bg-amber-100 flex items-center justify-center">
+          <div className="w-full min-h-48 flex items-center justify-center">
             <div className="loading loading-spinner loading-lg" />
           </div>
         ) : (
