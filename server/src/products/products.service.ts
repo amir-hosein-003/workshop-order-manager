@@ -21,7 +21,7 @@ export class ProductsService {
   }
 
   async findAll() {
-    return this.productRepository.find();
+    return this.productRepository.findBy({ isDelete: false });
   }
 
   async findOne(id: string) {
@@ -49,7 +49,7 @@ export class ProductsService {
     const foundProduct = await this.findOne(id);
     if (!foundProduct) throw new NotFoundException('Product not found');
 
-    const result = await this.productRepository.delete(id);
+    const result = await this.productRepository.update(id, { isDelete: true });
     if (result.affected === 0)
       throw new NotFoundException('Product to delete not found');
 

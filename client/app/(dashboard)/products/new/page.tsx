@@ -10,10 +10,11 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import NewProduct from "@/components/product/NewProduct";
 
-export default function PostsPage() {
+export default function NewPostPage() {
   return (
-    <ContentLayout title="All Posts">
+    <ContentLayout title="New Post">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -29,15 +30,20 @@ export default function PostsPage() {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Posts</BreadcrumbPage>
+            <BreadcrumbLink asChild>
+              <Link href="/products">Products</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>New</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
+
       {/* content */}
       <PlaceholderContent>
-        <div className="">
-          <h1 className="text-2xl">Posts</h1>
-        </div>
+        <NewProduct />
       </PlaceholderContent>
     </ContentLayout>
   );

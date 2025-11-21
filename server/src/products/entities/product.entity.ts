@@ -18,13 +18,16 @@ export class Product {
   description: string;
 
   @Column({ type: 'varchar' })
-  price: number;
+  price: string;
 
   @Column({ type: 'varchar' })
   images: string[];
 
   @Column({ type: 'varchar' })
   category: string;
+  
+  @Column({ type: 'boolean', default: false })
+  isDelete?: boolean;
 
   @CreateDateColumn()
   createdAt: Date;

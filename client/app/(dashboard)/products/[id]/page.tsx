@@ -1,5 +1,11 @@
 import Link from "next/link";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 
+import ProductDetail from "@/components/product/ProductDetail";
 import PlaceholderContent from "@/components/demo/placeholder-content";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
 import {
@@ -10,10 +16,26 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { getProductById } from "@/lib/services/product";
 
-export default function NewPostPage() {
+interface Props {
+  params: Promise<{ id: string }>;
+}
+
+const ProductDetailPage = async ({ params }: Props) => {
+  const id = (await params).id;
+
+  const queryClient = new QueryClient();
+
+  queryClient.prefetchQuery({
+    queryKey: ["product"],
+    queryFn: () => getProductById(id),
+  });
+
+  const dehydratedState = dehydrate(queryClient);
+
   return (
-    <ContentLayout title="New Post">
+    <ContentLayout title="All Posts">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -30,22 +52,25 @@ export default function NewPostPage() {
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link href="/posts">Posts</Link>
+              <Link href="/products">Products</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>New</BreadcrumbPage>
+            {/* {result && <BreadcrumbPage>{result.name}</BreadcrumbPage>} */}
+            <BreadcrumbPage>Product name</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
 
       {/* content */}
       <PlaceholderContent>
-        <div className="">
-          <h1 className="text-2xl">New Posts</h1>
-        </div>
+        <HydrationBoundary state={dehydratedState}>
+          <ProductDetail id={id} />
+        </HydrationBoundary>
       </PlaceholderContent>
     </ContentLayout>
   );
-}
+};
+
+export default ProductDetailPage;
