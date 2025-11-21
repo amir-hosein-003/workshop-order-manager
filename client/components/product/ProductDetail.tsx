@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Thumbs } from "swiper/modules";
 import "swiper/css";
@@ -13,6 +15,7 @@ import { parseImages } from "@/lib/utils/parseImages";
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { setCredentials } from "@/lib/store/features/authSlice";
 import { getMe } from "@/lib/services/auth";
+import { deleteProduct } from "@/lib/services/product";
 
 import Icon from "../ui/icon";
 
@@ -22,8 +25,12 @@ interface Props {
 
 const ProductDetail = ({ id }: Props) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
-  const user = useAppSelector((state) => state.auth.user);
+  const router = useRouter();
+
   const { data, isLoading } = useGetProductById(id);
+  const user = useAppSelector((state) => state.auth.user);
+
+  const images = data ? parseImages(data?.images) : [];
 
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -46,7 +53,16 @@ const ProductDetail = ({ id }: Props) => {
     })();
   }, []);
 
-  const images = data ? parseImages(data?.images) : [];
+  const deleteProductHandler = async () => {
+    try {
+      const res = await deleteProduct(id);
+      toast.success(res.message || "Delete product successfully");
+      router.push("/products");
+    } catch {
+      toast.error("Delete failed — please try again later");
+    }
+  };
+
   return (
     <div>
       {isLoading ? (
@@ -111,13 +127,22 @@ const ProductDetail = ({ id }: Props) => {
             </div>
             <div className="w-full h-32 flex flex-row items-end justify-end gap-6">
               {user?.role === "admin" && (
-                <Link
-                  href={`/products/new?productId=${data.id}`}
-                  className="btn btn-primary btn-outline rounded-md"
-                >
-                  <Icon icon="mynaui:pencil" width="24" height="24" />
-                  Edit
-                </Link>
+                <>
+                  <button
+                    onClick={deleteProductHandler}
+                    className="btn btn-error btn-outline rounded-md"
+                  >
+                    <Icon icon="mynaui:trash" width="24" height="24" />
+                    Delete
+                  </button>
+                  <Link
+                    href={`/products/new?productId=${data.id}`}
+                    className="btn btn-primary btn-outline rounded-md"
+                  >
+                    <Icon icon="mynaui:pencil" width="24" height="24" />
+                    Edit
+                  </Link>
+                </>
               )}
               <button className="btn btn-primary rounded-md">
                 Create Order

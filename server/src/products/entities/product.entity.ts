@@ -25,6 +25,9 @@ export class Product {
 
   @Column({ type: 'varchar' })
   category: string;
+  
+  @Column({ type: 'boolean', default: false })
+  isDelete?: boolean;
 
   @CreateDateColumn()
   createdAt: Date;
