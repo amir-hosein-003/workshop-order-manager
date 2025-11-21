@@ -5,9 +5,9 @@ import Link from "next/link";
 
 import { useGetProducts } from "@/hooks/api-hooks/useGetProducts";
 import { Product } from "@/lib/types/Product";
+import { parseImages } from "@/lib/utils/parseImages";
 
 import Icon from "../ui/icon";
-import { parseImages } from "@/lib/utils/parseImages";
 
 const ProductsList = () => {
   const { data, isLoading } = useGetProducts();
@@ -30,10 +30,10 @@ const ProductsList = () => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {data?.map((product: Product, index: number) => {
-              const images = parseImages(product.images);
+              const images = parseImages(String(product.images));
 
               return (
-                <div key={product.id ?? index} className="relative">
+                <div key={index} className="relative">
                   <div className="inverted-radius_br bg-base-200 overflow-hidden rounded-xl p-2">
                     <div className="relative">
                       <span className="w-20 h-8 flex items-center justify-center absolute top-0 left-0 rounded-md bg-primary/70">
