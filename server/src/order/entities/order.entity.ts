@@ -1,9 +1,11 @@
 import { Product } from 'src/products/entities/product.entity';
+import { User } from 'src/users/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -43,6 +45,15 @@ export class Order {
 
   @Column({ type: 'enum', enum: ['low', 'normal', 'high'], default: 'normal' })
   priority: string;
+
+  @Column({ default: 0 })
+  progress: number;
+
+  @ManyToOne(() => User, { eager: true })
+  createdBy: User;
+
+  // @OneToMany(() => Task, (task) => task.order)
+  // tasks: Task[];
 
   @CreateDateColumn()
   createdAt: Date;
