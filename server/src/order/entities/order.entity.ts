@@ -1,4 +1,5 @@
 import { Product } from 'src/products/entities/product.entity';
+import { Task } from 'src/tasks/entities/task.entity';
 import { User } from 'src/users/entities/user.entity';
 import {
   Column,
@@ -35,9 +36,6 @@ export class Order {
   customerName: string;
 
   @Column({ nullable: true })
-  customerPhone: string;
-
-  @Column({ nullable: true })
   dueDate: Date;
 
   @Column({ type: 'text', nullable: true })
@@ -52,8 +50,8 @@ export class Order {
   @ManyToOne(() => User, { eager: true })
   createdBy: User;
 
-  // @OneToMany(() => Task, (task) => task.order)
-  // tasks: Task[];
+  @OneToMany(() => Task, (task) => task.order)
+  tasks: Task[];
 
   @CreateDateColumn()
   createdAt: Date;
