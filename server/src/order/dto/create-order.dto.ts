@@ -30,7 +30,7 @@ export class CreateOrderDto {
 
   @IsOptional()
   @IsDateString()
-  dueDate?: Date;
+  dueDate?: string;
 
   @IsString()
   @IsOptional()
