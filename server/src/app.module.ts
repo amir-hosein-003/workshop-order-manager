@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { ProductsModule } from './products/products.module';
 import { OrderModule } from './order/order.module';
+import { TasksModule } from './tasks/tasks.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { OrderModule } from './order/order.module';
     AuthModule,
     ProductsModule,
     OrderModule,
+    TasksModule,
   ],
   controllers: [AppController],
   providers: [AppService],
