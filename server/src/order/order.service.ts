@@ -1,10 +1,16 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  RequestTimeoutException,
+} from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Order } from './entities/order.entity';
 import { Repository } from 'typeorm';
 import { ProductsService } from 'src/products/products.service';
+import { User } from 'src/users/entities/user.entity';
+import { PartialType } from '@nestjs/swagger';
 
 @Injectable()
 export class OrderService {
@@ -32,7 +38,21 @@ export class OrderService {
   }
 
   async findAll() {
-    return await this.orderRepository.find();
+    try {
+      const orders = await this.orderRepository.find();
+      const cleanOrders = orders.map((order) => {
+        if (!order.createdBy) return order;
+        const { password, createdAt, updatedAt, ...data } = order.createdBy;
+
+        return {
+          ...order,
+          createdBy: { ...data },
+        };
+      });
+      return cleanOrders;
+    } catch {
+      throw new RequestTimeoutException();
+    }
   }
 
   findOne(id: string) {

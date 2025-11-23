@@ -7,12 +7,16 @@ import {
   Param,
   Delete,
   Req,
+  UseGuards,
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { RoleGuard } from 'src/common/guards/role-guard/role.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
-@Controller('order')
+@Controller('orders')
+@UseGuards(JwtAuthGuard, RoleGuard)
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
