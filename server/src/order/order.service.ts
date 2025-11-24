@@ -10,8 +10,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Order } from './entities/order.entity';
 import { Repository } from 'typeorm';
 import { ProductsService } from 'src/products/products.service';
-import { User } from 'src/users/entities/user.entity';
-import { PartialType } from '@nestjs/swagger';
 
 @Injectable()
 export class OrderService {
