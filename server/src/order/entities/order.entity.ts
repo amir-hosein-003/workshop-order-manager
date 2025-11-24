@@ -53,6 +53,9 @@ export class Order {
   @OneToMany(() => Task, (task) => task.order)
   tasks: Task[];
 
+  @Column({ type: 'boolean', default: false })
+  isDelete: boolean;
+
   @CreateDateColumn()
   createdAt: Date;
 

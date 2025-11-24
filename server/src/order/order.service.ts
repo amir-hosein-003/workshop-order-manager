@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  NotFoundException,
   RequestTimeoutException,
 } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -55,15 +56,41 @@ export class OrderService {
     }
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} order`;
+  async findOne(id: string) {
+    try {
+      const order = await this.orderRepository.findOne({ where: { id } });
+      if (!order!.createdBy) return order;
+      const { password, createdAt, updatedAt, ...data } = order?.createdBy!;
+
+      return {
+        ...order,
+        createdBy: { ...data },
+      };
+    } catch {
+      throw new RequestTimeoutException();
+    }
   }
 
-  update(id: string, updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
+  async update(id: string, updateOrderDto: UpdateOrderDto) {
+    const order = await this.findOne(id);
+
+    const updatedOrder = await this.orderRepository.update(id, {
+      ...updateOrderDto,
+      createdBy: order?.createdBy,
+    });
+
+    if (!updatedOrder) throw new NotFoundException();
+
+    return await this.findOne(id);
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} order`;
+  async remove(id: string) {
+    const foundOrder = await this.findOne(id);
+    if (!foundOrder) throw new NotFoundException();
+
+    const result = await this.orderRepository.update(id, { isDelete: true });
+    if (result.affected === 0) throw new NotFoundException();
+
+    return { message: 'Delete order successfully', id };
   }
 }
