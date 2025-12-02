@@ -28,13 +28,13 @@ export class ProductsController {
   }
 
   @Get()
-  @Roles(Role.Admin, Role.Admin)
+  @Roles(Role.Admin, Role.Operator)
   findAll() {
     return this.productsService.findAll();
   }
 
   @Get(':id')
-  @Roles(Role.Admin, Role.Admin)
+  @Roles(Role.Admin, Role.Operator)
   findOne(@Param('id') id: string) {
     return this.productsService.findOne(id);
   }

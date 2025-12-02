@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Metadata } from "next";
 import {
   dehydrate,
   HydrationBoundary,
@@ -20,6 +21,14 @@ import { getProductById } from "@/lib/services/product";
 
 interface Props {
   params: Promise<{ id: string }>;
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Product Detail",
+    description: "Detailed view of the selected product.",
+    keywords: ["product details", "workshop", "order management"],
+  };
 }
 
 const ProductDetailPage = async ({ params }: Props) => {
