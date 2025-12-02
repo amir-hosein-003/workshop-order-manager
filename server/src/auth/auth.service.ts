@@ -89,8 +89,9 @@ export class AuthService {
       if (
         !foundToken ||
         !(await bcrypt.compare(refreshToken, foundToken.token))
-      )
+      ) {
         throw new UnauthorizedException('Refresh token not found');
+      }
 
       const user = await this.usersService.findById(payload.sub);
       if (!user) throw new UnauthorizedException();
@@ -115,7 +116,7 @@ export class AuthService {
       };
     } catch (err) {
       console.log('refresh catch block: ', err);
-      throw new UnauthorizedException('Invalid refresh token');
+      throw new BadRequestException('Invalid refresh token');
     }
   }
 
@@ -133,7 +134,7 @@ export class AuthService {
       return data;
     } catch (error) {
       console.log(error);
-      throw new UnauthorizedException();
+      throw new BadRequestException();
     }
   }
 
