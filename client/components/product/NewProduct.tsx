@@ -75,7 +75,7 @@ const NewProduct = () => {
 
   return (
     <section className="w-full h-full">
-      <h3 className="text-2xl font-semibold ">New Product</h3>
+      <h3 className="text-2xl font-semibold">New Product</h3>
 
       <div className="grid grid-cols-2 justify-items-center mt-6">
         <div className="w-md">
