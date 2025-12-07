@@ -1,4 +1,4 @@
-"use client";
+import { Metadata } from "next";
 import Link from "next/link";
 
 import { ContentLayout } from "@/components/admin-panel/content-layout";
@@ -11,6 +11,24 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import PlaceholderContent from "@/components/demo/placeholder-content";
+
+export const metadata: Metadata = {
+  title: "Order Management - Dashboard",
+  description: "Manage your workshop orders efficiently and effortlessly.",
+  keywords: ["workshop", "order management", "inventory", "sales", "customers"],
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
+};
 
 export default function DashboardPage() {
   return (
