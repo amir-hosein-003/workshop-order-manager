@@ -32,7 +32,7 @@ export function UserNav() {
                 variant="outline"
                 className="relative h-8 w-8 rounded-full hover:bg-primary"
               >
-                <Avatar className="h-8 w-8 text-primary-content">
+                <Avatar className="h-8 w-8">
                   <AvatarImage src="#" alt="Avatar" />
                   <AvatarFallback className="bg-transparent">JD</AvatarFallback>
                 </Avatar>

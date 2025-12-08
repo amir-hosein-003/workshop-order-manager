@@ -12,7 +12,7 @@ import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
-  TooltipProvider
+  TooltipProvider,
 } from "@/components/ui/tooltip";
 import { getMenuList } from "@/lib/menu-list";
 
@@ -62,17 +62,26 @@ export function Menu({ isOpen }: MenuProps) {
                                 (active === undefined &&
                                   pathname.startsWith(href)) ||
                                 active
-                                  ? "secondary"
+                                  ? "default"
                                   : "ghost"
                               }
-                              className="w-full justify-start h-10 mb-1 hover:bg-secondary/60"
+                              className="group w-full justify-start h-10 mb-1 hover:bg-primary/90"
                               asChild
                             >
                               <Link href={href}>
                                 <span
                                   className={cn(isOpen === false ? "" : "mr-4")}
                                 >
-                                  <Icon size={18} />
+                                  <Icon
+                                    size={18}
+                                    className={`group-hover:text-base-100 ${
+                                      (active === undefined &&
+                                        pathname.startsWith(href)) ||
+                                      active
+                                        ? "text-base-100"
+                                        : "text-primary"
+                                    }`}
+                                  />
                                 </span>
                                 <p
                                   className={cn(
@@ -120,7 +129,7 @@ export function Menu({ isOpen }: MenuProps) {
                   <Button
                     onClick={() => {}}
                     variant="outline"
-                    className="w-full justify-center h-10 mt-5 bg-secondary cursor-pointer hover:bg-secondary/60"
+                    className="w-full justify-center h-10 mt-5 text-destructive cursor-pointer hover:bg-destructive"
                   >
                     <span className={cn(isOpen === false ? "" : "mr-4")}>
                       <LogOut size={18} />

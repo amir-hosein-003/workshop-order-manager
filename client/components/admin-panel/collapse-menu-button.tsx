@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ChevronDown, Dot, LucideIcon } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -10,13 +11,13 @@ import { DropdownMenuArrow } from "@radix-ui/react-dropdown-menu";
 import {
   Collapsible,
   CollapsibleContent,
-  CollapsibleTrigger
+  CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
-  TooltipProvider
+  TooltipProvider,
 } from "@/components/ui/tooltip";
 import {
   DropdownMenu,
@@ -24,9 +25,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
   DropdownMenuContent,
-  DropdownMenuSeparator
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { usePathname } from "next/navigation";
 
 type Submenu = {
   href: string;
@@ -34,7 +34,7 @@ type Submenu = {
   active?: boolean;
 };
 
-interface CollapseMenuButtonProps {
+interface Props {
   icon: LucideIcon;
   label: string;
   active: boolean;
@@ -47,8 +47,8 @@ export function CollapseMenuButton({
   label,
   active,
   submenus,
-  isOpen
-}: CollapseMenuButtonProps) {
+  isOpen,
+}: Props) {
   const pathname = usePathname();
   const isSubmenuActive = submenus.some((submenu) =>
     submenu.active === undefined ? submenu.href === pathname : submenu.active
@@ -62,17 +62,22 @@ export function CollapseMenuButton({
       className="w-full"
     >
       <CollapsibleTrigger
-        className="[&[data-state=open]>div>div>svg]:rotate-180 mb-1 hover:bg-secondary/60"
+        className="[&[data-state=open]>div>div>svg]:rotate-180 mb-1 hover:bg-primary/90"
         asChild
       >
         <Button
-          variant={isSubmenuActive ? "secondary" : "ghost"}
-          className="w-full justify-start h-10"
+          variant={isSubmenuActive ? "default" : "ghost"}
+          className="group w-full justify-start h-10"
         >
           <div className="w-full items-center flex justify-between">
             <div className="flex items-center">
               <span className="mr-4">
-                <Icon size={18} />
+                <Icon
+                  size={18}
+                  className={`group-hover:text-primary-foreground text-primary ${
+                    isSubmenuActive ? "text-primary-foreground" : ""
+                  }`}
+                />
               </span>
               <p
                 className={cn(
@@ -107,15 +112,22 @@ export function CollapseMenuButton({
             key={index}
             variant={
               (active === undefined && pathname === href) || active
-                ? "secondary"
+                ? "default"
                 : "ghost"
             }
             className="w-full justify-start h-10 mb-1"
             asChild
           >
-            <Link href={href} className="hover:bg-secondary/60">
+            <Link href={href} className="group hover:bg-primary/90">
               <span className="mr-4 ml-2">
-                <Dot size={18} />
+                <Dot
+                  size={18}
+                  className={`group-hover:text-primary-foreground text-primary ${
+                    (active === undefined && pathname === href) || active
+                      ? "text-primary-foreground"
+                      : ""
+                  }`}
+                />
               </span>
               <p
                 className={cn(
@@ -139,13 +151,16 @@ export function CollapseMenuButton({
           <TooltipTrigger asChild>
             <DropdownMenuTrigger asChild>
               <Button
-                variant={isSubmenuActive ? "secondary" : "ghost"}
-                className="w-full justify-start h-10 mb-1"
+                variant={isSubmenuActive ? "default" : "ghost"}
+                className="group w-full justify-start h-10 mb-1"
               >
                 <div className="w-full items-center flex justify-between">
                   <div className="flex items-center">
                     <span className={cn(isOpen === false ? "" : "mr-4")}>
-                      <Icon size={18} />
+                      <Icon
+                        size={18}
+                        className="group-hover:text-base-100 text-primary"
+                      />
                     </span>
                     <p
                       className={cn(
@@ -175,7 +190,7 @@ export function CollapseMenuButton({
             <Link
               className={`cursor-pointer ${
                 ((active === undefined && pathname === href) || active) &&
-                "bg-secondary"
+                "bg-primary text-primary-content"
               }`}
               href={href}
             >
