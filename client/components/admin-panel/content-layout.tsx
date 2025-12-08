@@ -1,11 +1,11 @@
 import { Navbar } from "@/components/admin-panel/navbar";
 
-interface ContentLayoutProps {
+interface Props {
   title: string;
   children: React.ReactNode;
 }
 
-export function ContentLayout({ title, children }: ContentLayoutProps) {
+export function ContentLayout({ title, children }: Props) {
   return (
     <div>
       <Navbar title={title} />

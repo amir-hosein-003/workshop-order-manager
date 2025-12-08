@@ -7,7 +7,7 @@ interface NavbarProps {
 
 export function Navbar({ title }: NavbarProps) {
   return (
-    <header className="sticky top-0 z-10 w-full bg-primary/95 text-primary-content shadow backdrop-blur supports-backdrop-filter:bg-primary/60">
+    <header className="sticky top-0 z-10 w-full bg-base-100 text-base-content shadow backdrop-blur supports-backdrop-filter:bg-base-100">
       <div className="mx-4 sm:mx-8 flex h-14 items-center">
         <div className="flex items-center space-x-4 lg:space-x-0">
           <SheetMenu />

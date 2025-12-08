@@ -83,7 +83,7 @@ export class TasksService {
   }
 
   async taskAssign(taskId: string, operatorId: string) {
-    const task = this.findOne(taskId);
+    const task = await this.findOne(taskId);
     const operator = await this.usersService.findById(operatorId);
 
     if (!task) throw new NotFoundException();
