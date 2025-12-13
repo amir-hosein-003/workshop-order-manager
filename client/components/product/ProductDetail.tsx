@@ -18,6 +18,7 @@ import { getMe } from "@/lib/services/auth";
 import { deleteProduct } from "@/lib/services/product";
 
 import Icon from "../ui/icon";
+import CreateNewOrder from "./CreateNewOrder";
 
 interface Props {
   id: string;
@@ -144,10 +145,7 @@ const ProductDetail = ({ id }: Props) => {
                   </Link>
                 </>
               )}
-              <button className="btn btn-primary rounded-md">
-                Create Order
-                <Icon icon="mynaui:arrow-right-square" width="24" height="24" />
-              </button>
+              <CreateNewOrder product={data} />
             </div>
           </div>
         </div>
