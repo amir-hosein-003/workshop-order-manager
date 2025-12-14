@@ -10,10 +10,11 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import OrdersList from "@/components/orders/OrdersList";
 
-export default function CategoriesPage() {
+export default function OrdersPage() {
   return (
-    <ContentLayout title="Categories">
+    <ContentLayout title="Orders">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -29,16 +30,14 @@ export default function CategoriesPage() {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Categories</BreadcrumbPage>
+            <BreadcrumbPage>Orders</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      
+
       {/* content */}
-      <PlaceholderContent>
-        <div className="">
-          <h1 className="text-2xl">Categories</h1>
-        </div>
+      <PlaceholderContent className="">
+        <OrdersList />
       </PlaceholderContent>
     </ContentLayout>
   );

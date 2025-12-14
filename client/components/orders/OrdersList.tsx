@@ -1,0 +1,91 @@
+"use client";
+
+import Image from "next/image";
+import moment from "moment";
+
+import { useGetOrders } from "@/hooks/api-hooks/useGetOrders";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
+const OrdersList = () => {
+  const { data, isPending } = useGetOrders();
+
+  return (
+    <section className="">
+      <h3 className="text-2xl font-semibold">Orders List</h3>
+      <div className="mt-4">
+        <Table className="w-full">
+          <TableCaption>A list of your orders.</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[25px]">#</TableHead>
+              <TableHead className="w-[200px]">Product</TableHead>
+              <TableHead className="text-center">Quantity</TableHead>
+              <TableHead className="text-center">Total Price</TableHead>
+              <TableHead className="text-center">Customer name</TableHead>
+              <TableHead className="text-center">Due Date</TableHead>
+              <TableHead className="text-center">Creator</TableHead>
+              <TableHead className="text-center">Status</TableHead>
+              <TableHead className="text-center">Note</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data?.map((order: any, index: number) => (
+              <TableRow key={index}>
+                <TableCell className="">{index + 1}</TableCell>
+                <TableCell className="">
+                  <div className="flex flex-row items-center gap-2">
+                    <Image
+                      src={JSON.parse(order.product.images)[0]}
+                      className="w-12 h-12 aspect-square rounded-md"
+                      alt={order.product.name}
+                      width={400}
+                      height={400}
+                    />
+                    <div className="font-semibold">{order.product.name}</div>
+                  </div>
+                </TableCell>
+                <TableCell className="text-center">{order.quantity}</TableCell>
+                <TableCell className="text-center">{order.price}</TableCell>
+                <TableCell className="text-center">
+                  {order.customerName}
+                </TableCell>
+                <TableCell className="text-center">
+                  {order.dueDate
+                    ? moment(order.dueDate).format("YYYY/MM/DD")
+                    : ""}
+                </TableCell>
+                <TableCell className="text-center">
+                  {order.createdBy.name}
+                </TableCell>
+                <TableCell
+                  className={`text-center ${
+                    order.status === "pending" && "text-secondary"
+                  } ${order.status === "completed" && "text-success"}
+                  ${order.status === "canceled" && "text-error"}
+                  ${order.status === "in_progress" && "text-primary"}`}
+                >
+                  {order.status}
+                </TableCell>
+                <TableCell className="text-center">
+                  {order.notes?.length > 13
+                    ? order.notes?.slice(0, 13) + "..."
+                    : order.notes}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </section>
+  );
+};
+
+export default OrdersList;

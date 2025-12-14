@@ -11,6 +11,11 @@ export interface Order {
 }
 
 export async function createOrder(orderData: Order) {
-  const res = await axiosInstance.post("api/v1/orders/new-order", orderData);
+  const res = await axiosInstance.post("/api/v1/orders/new-order", orderData);
+  return res.data;
+}
+
+export async function getOrders() {
+  const res = await axiosInstance.get("/api/v1/orders");
   return res.data;
 }
