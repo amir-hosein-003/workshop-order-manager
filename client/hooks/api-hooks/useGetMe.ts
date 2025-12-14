@@ -15,7 +15,6 @@ export function useGetMe() {
     const persist = async () => {
       try {
         const user = await getMe();
-        console.log("getMe : ", user)
         dispatch(
           setCredentials({
             user: {
@@ -27,7 +26,6 @@ export function useGetMe() {
             },
           })
         );
-        console.log(user);
       } catch (err) {
         console.log(err);
       }

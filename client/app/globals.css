@@ -355,6 +355,6 @@
     @apply px-4 sm:px-8 md:px-16 lg:px-32;
   }
   .main-input{
-    @apply w-full h-12 rounded-lg text-base-content placeholder:text-base-content/40 border-2;
+    @apply w-full h-10! rounded-lg text-base-content placeholder:text-base-content/40 border-2;
   }
 }
