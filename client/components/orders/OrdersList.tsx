@@ -20,7 +20,7 @@ const OrdersList = () => {
   const { data, isPending } = useGetOrders();
 
   return (
-    <section className="">
+    <section>
       <h3 className="text-2xl font-semibold p-4 rounded-lg shadow-sm bg-card">
         Orders List
       </h3>
@@ -49,8 +49,8 @@ const OrdersList = () => {
             <TableBody>
               {data?.map((order: any, index: number) => (
                 <TableRow key={index}>
-                  <TableCell className="">{index + 1}</TableCell>
-                  <TableCell className="">
+                  <TableCell>{index + 1}</TableCell>
+                  <TableCell>
                     <div className="flex flex-row items-center gap-2">
                       <Image
                         src={JSON.parse(order.product.images)[0]}
@@ -81,8 +81,8 @@ const OrdersList = () => {
                     className={`text-center ${
                       order.status === "pending" && "text-secondary"
                     } ${order.status === "completed" && "text-success"}
-                  ${order.status === "canceled" && "text-error"}
-                  ${order.status === "in_progress" && "text-primary"}`}
+                      ${order.status === "canceled" && "text-error"}
+                      ${order.status === "in_progress" && "text-primary"}`}
                   >
                     {order.status === "pending"
                       ? order.status + "..."
