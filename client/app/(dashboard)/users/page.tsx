@@ -35,7 +35,7 @@ export default function UsersPage() {
       </Breadcrumb>
       
       {/* content */}
-      <PlaceholderContent>
+      <PlaceholderContent className="bg-card rounded-lg shadow-sm p-6">
         <div className="">
           <h1 className="text-2xl">Users</h1>
         </div>

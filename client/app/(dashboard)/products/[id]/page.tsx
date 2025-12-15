@@ -73,7 +73,7 @@ const ProductDetailPage = async ({ params }: Props) => {
       </Breadcrumb>
 
       {/* content */}
-      <PlaceholderContent>
+      <PlaceholderContent className="bg-card rounded-lg shadow-sm p-6">
         <HydrationBoundary state={dehydratedState}>
           <ProductDetail id={id} />
         </HydrationBoundary>

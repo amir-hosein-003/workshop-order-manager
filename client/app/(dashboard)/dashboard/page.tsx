@@ -48,8 +48,8 @@ export default function DashboardPage() {
       </Breadcrumb>
 
       {/* content */}
-      <PlaceholderContent>
-        <div className="">
+      <PlaceholderContent className="bg-card rounded-lg shadow-sm p-6">
+        <div>
           <h1 className="text-2xl">Dashboard</h1>
         </div>
       </PlaceholderContent>
