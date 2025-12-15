@@ -36,7 +36,7 @@ export default function OrdersPage() {
       </Breadcrumb>
 
       {/* content */}
-      <PlaceholderContent className="">
+      <PlaceholderContent>
         <OrdersList />
       </PlaceholderContent>
     </ContentLayout>

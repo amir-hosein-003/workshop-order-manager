@@ -14,16 +14,18 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+import { Card } from "../ui/card";
+
 const OrdersList = () => {
   const { data, isPending } = useGetOrders();
 
   return (
     <section className="">
-      <h3 className="text-2xl font-semibold">Orders List</h3>
-      <div className="mt-4">
-        <Table className="w-full">
-          <TableCaption>A list of your orders.</TableCaption>
-          <TableHeader>
+      <h3 className="text-2xl font-semibold p-4 rounded-lg shadow-sm bg-card">Orders List</h3>
+      <Card className="mt-6 py-0">
+        <Table className="w-full rounded-t-lg overflow-hidden">
+          <TableCaption className="p-4">A list of your orders.</TableCaption>
+          <TableHeader className="bg-muted rounded-lg">
             <TableRow>
               <TableHead className="w-[25px]">#</TableHead>
               <TableHead className="w-[200px]">Product</TableHead>
@@ -72,7 +74,9 @@ const OrdersList = () => {
                   ${order.status === "canceled" && "text-error"}
                   ${order.status === "in_progress" && "text-primary"}`}
                 >
-                  {order.status}
+                  {order.status === "pending"
+                    ? order.status + "..."
+                    : order.status}
                 </TableCell>
                 <TableCell className="text-center">
                   {order.notes?.length > 13
@@ -83,7 +87,7 @@ const OrdersList = () => {
             ))}
           </TableBody>
         </Table>
-      </div>
+      </Card>
     </section>
   );
 };

@@ -42,7 +42,7 @@ export default function NewPostPage() {
       </Breadcrumb>
 
       {/* content */}
-      <PlaceholderContent>
+      <PlaceholderContent className="bg-card rounded-lg shadow-sm p-6">
         <NewProduct />
       </PlaceholderContent>
     </ContentLayout>

@@ -35,7 +35,7 @@ export default function PostsPage() {
         </BreadcrumbList>
       </Breadcrumb>
       {/* content */}
-      <PlaceholderContent>
+      <PlaceholderContent className="bg-card rounded-lg shadow-sm p-6">
         <ProductsList />
       </PlaceholderContent>
     </ContentLayout>
