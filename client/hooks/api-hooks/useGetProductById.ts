@@ -5,6 +5,6 @@ import { getProductById } from "@/lib/services/product";
 export const useGetProductById = (id: string) => {
   return useQuery({
     queryKey: ["product", id],
-    queryFn: () => getProductById(id),
+    queryFn: ({ queryKey }) => getProductById(queryKey[1]),
   });
 };

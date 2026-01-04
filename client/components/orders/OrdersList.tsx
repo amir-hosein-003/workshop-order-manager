@@ -15,6 +15,19 @@ import {
 } from "@/components/ui/table";
 
 import { Card } from "../ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+
+const statusList: string[] = [
+  "pending",
+  "in_progress",
+  "completed",
+  "canceled",
+];
 
 const OrdersList = () => {
   const { data, isPending } = useGetOrders();
@@ -84,9 +97,20 @@ const OrdersList = () => {
                       ${order.status === "canceled" && "text-error"}
                       ${order.status === "in_progress" && "text-primary"}`}
                   >
-                    {order.status === "pending"
-                      ? order.status + "..."
-                      : order.status}
+                    <DropdownMenu>
+                      <DropdownMenuTrigger className="cursor-pointer">
+                        {order.status === "pending"
+                          ? order.status + "..."
+                          : order.status}
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        {statusList.map((status: string, index: number) => (
+                          <DropdownMenuItem key={index}>
+                            {status}
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </TableCell>
                   <TableCell className="text-center">
                     {order.notes?.length > 13
